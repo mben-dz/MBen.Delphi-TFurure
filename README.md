@@ -1,5 +1,7 @@
 
-# 🚀 Delphi Async Helpers with `TFuture<T>`
+# 🚀 Future or Trap? Investigating TFuture<T> Behavior in Delphi (Part 1)
+
+Delphi Deep Dive: Step by Step , Understanding the Right Use of TFuture  
 
 [my Youtube Video:](https://www.youtube.com/watch?v=t9udgEHANlI)  
 [](TFuture-Async.jpg)  
