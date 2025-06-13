@@ -98,25 +98,17 @@ begin
     Result := TimeToStr(Now) + 'تم التنفيذ بهذا الوقت : ✅';
   end);
 
-  TTask.Run(procedure
-  var
-    LReply: string;
-  begin
-    LReply := LFutureValue.Value;
+  TTask.Run(procedure begin
+    while not (LFutureValue.Status in
+      [TTaskStatus.Completed, TTaskStatus.Canceled, TTaskStatus.Exception]) do
+      TThread.Sleep(100);
 
-    TThread.Queue(TThread.Current, procedure begin
-      LogReply(LReply);
+    TThread.Queue(nil, procedure begin
+      if LFutureValue.Status = TTaskStatus.Completed then
+        LogReply(LFutureValue.Value) else
+        LogReply('Future Failled or Canceled !!');
+        LFutureValue := nil;
     end);
-
-//    while not (LFutureValue.Status in
-//      [TTaskStatus.Completed, TTaskStatus.Canceled, TTaskStatus.Exception]) do
-//      TThread.Sleep(100);
-
-//    TThread.Queue(nil, procedure begin
-//      if LFutureValue.Status = TTaskStatus.Completed then
-//        LogReply(LFutureValue.Value) else
-//        LogReply('Future Failled or Canceled !!');
-//    end);
   end);
 end;
 
