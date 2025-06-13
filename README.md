@@ -4,7 +4,7 @@
 [my Youtube Video:](https://www.youtube.com/watch?v=t9udgEHANlI)  
 [](TFuture-Async.jpg)  
 
-Please feel free to take a look here(it's very [Important !!](https://en.delphipraxis.net/topic/13683-introducing-my-delphi-tfuture-ppl-for-thread-safe-ui/) ):
+Please feel free to take a look here ( it's very [Important !!](https://en.delphipraxis.net/topic/13683-introducing-my-delphi-tfuture-ppl-for-thread-safe-ui/) ):
 
 
 This demo project provides a clean and safe way to perform background operations in Delphi using `TTask` and `TFuture<T>`, with a focus on keeping the **UI responsive** and preventing **memory leaks**.
