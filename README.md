@@ -1,6 +1,8 @@
 
 # 🚀 Delphi Async Helpers with `TFuture<T>`
 
+[my Youtube Video:](https://www.youtube.com/watch?v=t9udgEHANlI)  
+
 This demo project provides a clean and safe way to perform background operations in Delphi using `TTask` and `TFuture<T>`, with a focus on keeping the **UI responsive** and preventing **memory leaks**.
 
 ## 📦 What's Inside
@@ -78,7 +80,7 @@ TTask.Run(
     var LValue := LFuture.Value;
     TThread.Queue(nil, procedure begin
       LogReply('Result: ' + LValue.ToString);
-      LFuture := nil;
+      LFuture := nil; // release `IFuture<T>` reference to avoid Memory Leak (TCompleteEventWrapper etc of internal thread pool that service the TTask).
     end);
   end);
 ```
@@ -102,7 +104,7 @@ begin
   LFuture.Wait;
   TThread.Queue(nil, procedure begin
     LogReply(LResult);
-    LFuture := nil;
+    LFuture := nil; // release `IFuture<T>` reference to avoid Memory Leak (TCompleteEventWrapper etc of internal thread pool that service the TTask).
   end);
 end);
 ```
@@ -120,15 +122,18 @@ A more advanced way to ensure task completion:
 ```pascal
 var LFuture := TTask.Future<string>(...);
 
-TTask.Run(procedure
-begin
-  var LReply := LFuture.Value;
+  TTask.Run(procedure begin
+    while not (LFuture.Status in
+      [TTaskStatus.Completed, TTaskStatus.Canceled, TTaskStatus.Exception]) do
+      TThread.Sleep(100);
 
-  TThread.Queue(nil, procedure begin
-    LogReply(LReply);
-    LFuture := nil;
+    TThread.Queue(nil, procedure begin
+      if LFuture.Status = TTaskStatus.Completed then
+        LogReply(LFuture.Value) else
+        LogReply('Future Failled or Canceled !!');
+        LFuture := nil; // release `IFuture<T>` reference to avoid Memory Leak (TCompleteEventWrapper etc of internal thread pool that service the TTask).
+    end);
   end);
-end);
 ```
 
 ---
@@ -142,7 +147,7 @@ end);
 
 ❌ Don’t  
 - Call `.Value` on the main thread  
-- Forget to release `IFuture<T>` reference  
+- Forget to release `IFuture<T>` reference to avoid Memory Leak (TCompleteEventWrapper etc of internal thread pool that service the TTask). 
 - Update UI directly from background threads
 
 ---
@@ -159,8 +164,48 @@ end);
 
 Free to use and modify in any personal or commercial project.
 
----
+---  
+🧠 Design Philosophy: What Future Really Means  
+In general software design, a Future is an abstraction that represents a promise of a result to be available in the future. It is not intended to be synchronously accessed using .Value, especially not from the main thread.  
 
+❌ Misconception: Using .Value Is Asynchronous  
+The Future is not designed for synchronous use — instead, it should be part of a fully asynchronous programming style, ideally involving a callback mechanism.  
+  
+Calling .Value is essentially a blocking call, which defeats the purpose of using Future in the first place.  
+  
+✅ The Core Idea Behind Future  
+The essence of the Future abstraction is:  
+  
+🔹 A promise for a future result without blocking the current thread, preferably using a callback to handle the result when it’s ready.  
+
+So using .Value is almost equivalent to Task.Wait — not a true asynchronous pattern  
+
+⚠️ Using .Value on the Main Thread Is Misleading!  
+One of the most common pitfalls developers face with IFuture<T> in Delphi is the assumption that it is meant to be accessed using .Value.  
+  
+In reality, this goes against the very design philosophy of Future in most programming languages.  
+  
+In Delphi, calling .Value internally does something like this:  
+```pascal
+function TFuture<T>.GetValue: T;
+begin
+  Wait; // ⛔ This blocks the current thread!
+  Result := FResult;
+end;
+
+```
+So, it's not just about when the computation starts — it’s about how you consume the result in a way that doesn't harm the user experience.  
+  
+  🔄 Summary  
+.Value = Blocking = like Wait  
+  
+Future's goal = Non-blocking promise, best used with callbacks  
+  
+Using .Value in UI = ❌ Breaks the async model, risks freezing UI  
+  
+Best practice = Use background thread + TThread.Queue for result delivery  
+
+  
 ## 🙌 Contributions
 
 Feel free to open an issue or PR if you want to extend this helper for things like:
