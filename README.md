@@ -51,7 +51,7 @@ TSimpleFuture<string>.RunFuture(
   function: string
   begin
     Sleep(2000);
-    Result := TimeToStr(Now) + ' ✅ تم التنفيذ';
+    Result := '✅ Executed at this time:' + TimeToStr(Now);
   end,
   LogReply
 );
@@ -105,17 +105,19 @@ TTask.Run(
 
 ```pascal
 var
+  LFuture: ITask;
   LResult: string;
-  LFuture := TTask.Run(...);
-
-TTask.Run(procedure
 begin
-  LFuture.Wait;
-  TThread.Queue(nil, procedure begin
-    LogReply(LResult);
-    LFuture := nil; // release `IFuture<T>` reference to avoid Memory Leak (TCompleteEventWrapper etc of internal thread pool that service the TTask).
-  end);
-end);
+  LFuture:= TTask.Run(
+    procedure
+    begin
+      Sleep(3000);
+      LResult := '✅ Executed at this time:' + TimeToStr(Now);
+    end);
+
+  LFuture.Wait(); // Simulate LFutureValue.Value ..
+  LogReply(LResult);
+end;
 ```
 
 > 🧠 A useful trick for simulating `Future.Value` behavior without using `TFuture<T>`
