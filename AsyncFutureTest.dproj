@@ -59,8 +59,8 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
-        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_DcuOutput>.\DEPLOY\DCU</DCC_DcuOutput>
+        <DCC_ExeOutput>.\DEPLOY\EXE</DCC_ExeOutput>
         <DCC_E>false</DCC_E>
         <DCC_N>false</DCC_N>
         <DCC_S>false</DCC_S>
@@ -71,6 +71,9 @@
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
         <SanitizedProjectName>AsyncFutureTest</SanitizedProjectName>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1036</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=MBenDelphi;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=$(MSBuildProjectName);LegalCopyright=MBenDelphi;LegalTrademarks=MBenDelphi;OriginalFilename=$(MSBuildProjectName);ProgramID=dz.MBenDelphi.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=Delphi Async Patterns: The Real Purpose of TFuture (Part 1) 13/06/2025</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_UsePackage>FireDACIBDriver;JvNet;vclwinx;DataSnapServer;frReportFiles;bdertl;fmx;lmdrtbar;vclie;DbxCommonDriver;bindengine;IndyIPCommon;VCLRESTComponents;DBXMSSQLDriver;FireDACCommonODBC;emsclient;OpenOfficeComponent_install;appanalytics;IndyProtocols;vclx;Skia.Package.RTL;AlphaCtrl_R;dbxcds;vcledge;StyleCtrl;ngvalidators;FmxTeeUI;DBXFirebirdDriver;vclribbon;JvAppFrm;FireDACSqliteDriver;DbxClientDriver;RtmRxBde290;lmdrtdesign;lmdrtsearchdb;JclVcl;soapmidas;TeeUI;Jcl;dbexpress;JvManagedThreads;Python;PowerPDFDR;Direct2DDemoDesign;lmdrtchart;inet;AsyncProDR;vcltouch;PythonVcl;RtmRxDB290;lmdrtrtfdb;JvDB;lmdrtplugin;FireDACDBXDriver;fmxdae;RbCtrls;lmdrtsearch;SysToolsDR;JvCustom;CustomIPTransport;FireDACMSSQLDriver;EssentialsDR;JvSystem;lmdrtthemes;frDBXFiles;JvControls;lmdrtide;Direct2DDemoRunTime;JvCrypt;JvJans;lmdrtfx;JvMM;IndySystem;lmdrtl;frTeeChartFiles;AlphaCtrlDB;lmdrtinspector;JvGlobus;ibxbindings;PKIECtrl12;IKRes;JclContainers;JvPageComps;EsVclCore;vclFireDAC;lmdrtshell;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;emsserverresource;DOSCommandDR;bindcompdbx;lmdrtdocking;lmdrtdialog;rtl;FireDACMySQLDriver;StyledAnimatedComponents;DBXSqliteDriver;IcsCommonNewRun;VirtualTreesDR;DBXSybaseASEDriver;JvRuntimeDesign;lmdrteldb;JvXPCtrls;RtmRxCtl290;vclimg;DataSnapFireDAC;inetdbxpress;FireDAC;JvDocking;JvDlgs;xmlrtl;P4DEnvironment;ibxpress;dsnap;JvCmp;dclAbsDBd29;FireDACDb2Driver;lmdrtprint;DBXOracleDriver;DBXInformixDriver;vclib;fmxobj;bindcompvclsmp;DataSnapNativeClient;lmdrtscript;DatasnapConnectorsFreePascal;vcldbx;SVGIconImageList;AppCtrl;lmdrtgrid;emshosting;SVGIconImageListRestClient;lmdrtscriptimp;FireDACCommonDriver;RadiantShapesFmx_Design;IndyIPClient;bindcompvclwinx;EsVclComponents;emsedge;bindcompfmx;SysToolsDBDR;JvBands;inetdb;lmdrtsys;ngcommon;ibmonitor;nghtml;FireDACASADriver;Tee;SVGIconImageListFMX;OrpheusDBDR;vclactnband;fmxFireDAC;lmdrtspell;FireDACInfxDriver;lmdrtelcore;DBXMySQLDriver;EsCore;VclSmp;DataSnapCommon;JvPascalInterpreter;fmxase;JvPluginSystem;DBXOdbcDriver;JvTimeFramework;dbrtl;FireDACOracleDriver;Skia.Package.FMX;TeeDB;PKIEDB12;FireDACMSAccDriver;AbbreviaVCLD;DataSnapIndy10ServerTransport;JclDeveloperTools;lmdrtcore;lmdrtstorage;DataSnapConnectors;QRWRunDXE12;vcldsnap;DBXInterBaseDriver;FireDACMongoDBDriver;frBDEFiles;JvWizards;PngComponentsD;OrpheusDR;ngvldtctrls;RadiantShapesFmx;FireDACTDataDriver;Skia.Package.VCL;lmdrtrtf;lmdrtsyntax;vcldb;ngdragdrop;ngdialogs;bsfd12Athens;StyledComponents;IconFontsImageList;SynEditDR;JvCore;bindcomp;vclAbsDBd29;FlatStyle;lmdrtweb;inetstn;lmdrtelpro;IndyCore;RESTBackendComponents;lmdrttools;FireDACADSDriver;RaizeComponentsVclDb;RESTComponents;IndyIPServer;vcl;dsnapxml;adortl;dsnapcon;DataSnapClient;DataSnapProviderClient;JvDotNetCtrls;JvHMI;IcsVclNewRun;DBXDb2Driver;lmdrttoolsdb;emsclientfiredac;FireDACPgDriver;FireDACDSDriver;JvPrintPreview;tethering;JvStdCtrls;bindcompvcl;lmdrtchartdb;CloudService;DBXSybaseASADriver;lmdrtrtlx;frCubeFiles;frIBXFiles;IconFontsImageListFMX;FMXTee;PythonFmx;soaprtl;RaizeComponentsVcl;soapserver;$(DCC_UsePackage)</DCC_UsePackage>
@@ -103,6 +106,8 @@
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -148,6 +153,10 @@
                 <Source>
                     <Source Name="MainSource">AsyncFutureTest.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k290.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp290.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="5">
                 <DeployFile LocalName="Win32\Debug\AsyncFutureTest.exe" Configuration="Debug" Class="ProjectOutput">

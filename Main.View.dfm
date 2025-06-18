@@ -5,6 +5,7 @@ object MainView: TMainView
   Margins.Top = 5
   Margins.Right = 5
   Margins.Bottom = 5
+  BiDiMode = bdLeftToRight
   Caption = 'MainView'
   ClientHeight = 464
   ClientWidth = 683
@@ -15,6 +16,7 @@ object MainView: TMainView
   Font.Name = 'Bahnschrift SemiLight SemiConde'
   Font.Style = []
   Font.Quality = fqClearTypeNatural
+  ParentBiDiMode = False
   PixelsPerInch = 144
   DesignSize = (
     683
@@ -110,7 +112,6 @@ object MainView: TMainView
       'Future Reply goes Here:')
     ParentFont = False
     TabOrder = 5
-    ExplicitTop = 324
   end
   object BtnClear: TButton
     Left = 570
@@ -126,6 +127,5 @@ object MainView: TMainView
     Caption = 'Clear'
     TabOrder = 6
     OnClick = BtnClearClick
-    ExplicitTop = 420
   end
 end

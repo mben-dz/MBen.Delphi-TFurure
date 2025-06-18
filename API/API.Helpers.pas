@@ -18,9 +18,9 @@ implementation
 
 { TSimpleFuture<T> }
 
-class procedure TSimpleFuture<T>.Run
-  (const aQuery: TFunc<T>;
-   const aReply: TConstProc<T>);
+class procedure TSimpleFuture<T>.Run(
+  const aQuery: TFunc<T>;
+  const aReply: TConstProc<T>);
 begin
   TTask.Run(procedure
   var
@@ -41,20 +41,17 @@ class procedure TSimpleFuture<T>.RunFuture(
 var
   LFuture: IFuture<T>;
 begin
-  LFuture := TTask.Future<T>(function: T
-  begin
-    Result := aQuery();
-  end);
+  LFuture := TTask.Future<T>(aQuery); // Start LFuture here ..
 
   TTask.Run(procedure
   var
     LReply: T;
   begin
-    LReply := LFuture.Value;
+    LReply := LFuture.Value; // Block or wait inside background thread
 
     TThread.Queue(nil, procedure begin
       aReply(LReply);
-      LFuture := nil;
+      LFuture := nil; // release `IFuture<T>` reference to avoid Memory Leak (TCompleteEventWrapper etc of internal thread pool that service the TTask).
     end);
 
   end)

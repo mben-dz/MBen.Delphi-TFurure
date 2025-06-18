@@ -59,7 +59,7 @@ begin
   LFutureValue := TTask.Future<string>(function: string
   begin
     Sleep(3000);
-    Result := TimeToStr(Now) + 'تم التنفيذ بهذا الوقت : ✅';
+    Result := '✅ Executed at this time:' + TimeToStr(Now);
   end);
 
   LogReply(LFutureValue.Value);
@@ -67,47 +67,38 @@ end;
 
 procedure TMainView.BtnSimulateIFutureClick(Sender: TObject);
 var
-  LResult: string;
   LFuture: ITask;
+  LResult: string;
 begin
   LFuture:= TTask.Run(
     procedure
     begin
-      Sleep(2000);
-      LResult := TimeToStr(Now) + 'تم التنفيذ بهذا الوقت : ✅';
-
+      Sleep(3000);
+      LResult := '✅ Executed at this time:' + TimeToStr(Now);
     end);
 
-  TTask.Run(procedure begin
-
-    LFuture.Wait();
-
-    TThread.Queue(nil, procedure begin
-      LogReply(LResult);
-      LFuture := nil;
-    end);
-  end);
-
+  LFuture.Wait(); // Simulate LFutureValue.Value ..
+  LogReply(LResult);
 end;
 
 procedure TMainView.BtnMonitorSolutionClick(Sender: TObject);
 begin
   var LFutureValue := TTask.Future<string>(function: string
-  begin
-    Sleep(3000);
-    Result := TimeToStr(Now) + 'تم التنفيذ بهذا الوقت : ✅';
-  end);
+    begin
+      Sleep(3000);
+      Result := '✅ Executed at this time:' + TimeToStr(Now);
+    end);
 
-  TTask.Run(procedure begin
+  TTask.Run(procedure begin // Start TTask <LFutureValue> Status Observer Every 100 MilliSec...
     while not (LFutureValue.Status in
       [TTaskStatus.Completed, TTaskStatus.Canceled, TTaskStatus.Exception]) do
-      TThread.Sleep(100);
+      TThread.Sleep(100); // Reduce CPU Usage ..
 
     TThread.Queue(nil, procedure begin
       if LFutureValue.Status = TTaskStatus.Completed then
         LogReply(LFutureValue.Value) else
         LogReply('Future Failled or Canceled !!');
-        LFutureValue := nil;
+        LFutureValue := nil; // release `IFuture<T>` reference to avoid Memory Leak (TCompleteEventWrapper etc of internal thread pool that service the TTask).
     end);
   end);
 end;
@@ -123,7 +114,7 @@ begin
       Result := 42;
     end);
 
-  TTask.Run(
+  TTask.Run(  // Start TTask Wait for <LFuture.Value> Outside MainThread ..
     procedure
     var
       LValue: Integer;
@@ -134,16 +125,16 @@ begin
         procedure
         begin
           LogReply('Result is ' + LValue.ToString); // update UI on main thread
-          LFuture := nil;
+          LFuture := nil; // release `IFuture<T>` reference to avoid Memory Leak (TCompleteEventWrapper etc of internal thread pool that service the TTask).
         end);
     end);
 end;
 
 procedure TMainView.BtnStartWithHelperClick(Sender: TObject);
 begin
-  TSimpleFuture<string>.RunFuture(function: string begin
-    Sleep(2000);
-    Result := TimeToStr(Now) + 'تم التنفيذ بهذا الوقت : ✅';
+  TSimpleFuture<string>.Run(function: string begin
+    Sleep(3000);
+    Result := '✅ Executed at this time:' + TimeToStr(Now);
   end, LogReply);
 end;
 
