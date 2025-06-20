@@ -89,7 +89,8 @@ begin
       Result := '✅ Executed at this time:' + TimeToStr(Now);
     end);
 
-  TTask.Run(procedure begin // Start TTask <LFutureValue> Status Observer Every 100 MilliSec...
+  TTask.Run(procedure begin // Start a background TTask here, to periodically observe the status LFutureValue.Status every 100 ms
+                            // without blocking the main thread.  
     while not (LFutureValue.Status in
       [TTaskStatus.Completed, TTaskStatus.Canceled, TTaskStatus.Exception]) do
       TThread.Sleep(100); // Reduce CPU Usage ..
@@ -114,8 +115,8 @@ begin
       Result := 42;
     end);
 
-  TTask.Run(  // Start TTask Wait for <LFuture.Value> Outside MainThread ..
-    procedure
+  TTask.Run(  // Start a TTask and immediately call LFuture.Value to wait for the result of the future outside the main thread.
+    procedure // Launching a TTask allows us to access LFuture.Value from within the background thread, ensuring we wait for the result without blocking the main application thread.
     var
       LValue: Integer;
     begin
